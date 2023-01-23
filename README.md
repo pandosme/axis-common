@@ -12,6 +12,7 @@ You may want to alter the following default settings
 - Timezone = Europe/Stockholm
 - container_name (if you paln to have multiple instance of Node-RED containers)
 
+
 ## settings.js
 - httpAdminRoot: '/admin',   (Default flows view url http://address:8600/admin)
 - ui: { path: "/" },         (Default dashboard url http://address:8600/)
