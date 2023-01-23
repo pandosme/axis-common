@@ -1,5 +1,4 @@
-# axis-common-node-red:mongo
-Common Node-RED configuration when scripting cameras with a local mongo database container.
+# axis-ming-path
 
 # pre-requisites
 - Linux host with Docker, Docker-compose and GIT installed
