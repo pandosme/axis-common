@@ -1,7 +1,7 @@
 version: '3'
 services:
   nodered:
-    container_name: axis-common-node-red
+    container_name: axis-ming-path
     image: nodered/node-red:latest
     restart: always
     environment:
@@ -10,10 +10,11 @@ services:
       - '8600:1880'
     links:
       - mongodb
+      - influxdb
     volumes:
       - ./:/data
   mongodb:
-    container_name: axis-common-node-red-mongo
+    container_name: axis-ming-path-mongo
     image: mongo:4.4.14
     restart: always
 # Remove remarks below to expose mongodb port outside the container
@@ -34,3 +35,36 @@ services:
 #      - mongodb
 #    ports:
 #      - 8681:8081
+
+  influxdb:
+    container_name: axis-ming-path-influx
+    restart: always
+    image: influxdb:1.8.10
+    user: '0'
+    volumes:
+      - ./influxdb:/var/lib/influxdb
+#    ports:
+#      - '8686:8086'  
+
+#  grafana:
+#    image: grafana/grafana:latest
+#    container_name: axis-ming-path-grafana
+#    restart: always
+#    ports:
+#      - "3000:3000"
+#    environment:
+#      - TZ=Europe/Stockholm
+#      - GF_AUTH_ANONYMOUS_ENABLED=true
+#      - GF_SECURITY_ALLOW_EMBEDDING=true
+#      - GF_DATE_FORMATS_FULL_DAT=YYYY-MM-DD HH:mm:ss
+#      - GF_DATE_FORMATS_INTERVAL_SECOND=HH:mm:ss
+#      - GF_DATE_FORMATS_INTERVAL_MINUTE=HH:mm
+#      - GF_DATE_FORMATS_INTERVAL_HOUR=ddd HH:mm
+#      - GF_DATE_FORMATS_INTERVAL_DAY=MMM DD
+#      - GF_DATE_FORMATS_INTERVAL_MONTH=YYYY-MM
+#      - GF_DATE_FORMATS_INTERVAL_YEAR=YYYY
+##      - GF_SECURITY_COOKIE_SECURE=true
+#      - GF_SECURITY_COOKIE_SAMESITE=none
+#    user: "0"
+#    volumes:
+#      - ./grafana:/var/lib/grafana
