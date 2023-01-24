@@ -202,7 +202,7 @@
         "id": "260e45057b94b302",
         "type": "mqtt-broker",
         "name": "Broker",
-        "broker": "10.13.8.20",
+        "broker": "192.168.5.99",
         "port": "1883",
         "clientid": "",
         "autoConnect": true,
@@ -1654,6 +1654,21 @@
                 "label": "15 seconds",
                 "value": 15,
                 "type": "num"
+            },
+            {
+                "label": "13 seconds",
+                "value": 30,
+                "type": "num"
+            },
+            {
+                "label": "45 seconds",
+                "value": 45,
+                "type": "num"
+            },
+            {
+                "label": "1 minute",
+                "value": "60",
+                "type": "str"
             }
         ],
         "payload": "",
