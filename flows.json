@@ -38,6 +38,14 @@
         "env": []
     },
     {
+        "id": "fdbacd19fb5764f6",
+        "type": "tab",
+        "label": "Count",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "b12a9cc543227135",
         "type": "mongodb",
         "hostname": "mongodb",
@@ -327,6 +335,25 @@
         "influxdbVersion": "1.x",
         "url": "http://localhost:8086",
         "rejectUnauthorized": true
+    },
+    {
+        "id": "b4b6f980daaf1f93",
+        "type": "ui_tab",
+        "name": "Counters",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "1ae4c78855cac5fb",
+        "type": "ui_group",
+        "name": "Detections",
+        "tab": "b4b6f980daaf1f93",
+        "order": 1,
+        "disp": false,
+        "width": "24",
+        "collapse": false,
+        "className": ""
     },
     {
         "id": "f2186c1b76557e69",
@@ -5772,5 +5799,230 @@
         "x": 600,
         "y": 160,
         "wires": []
+    },
+    {
+        "id": "3a6351d713b1a634",
+        "type": "influxdb in",
+        "z": "251e28d43075d4af",
+        "influxdb": "ca2547b7188cdec3",
+        "name": "List last hour",
+        "query": "SELECT * from quarter.log WHERE time > now() - 1h",
+        "rawOutput": false,
+        "precision": "",
+        "retentionPolicy": "",
+        "org": "organisation",
+        "x": 1060,
+        "y": 220,
+        "wires": [
+            [
+                "2079143df36dec20"
+            ]
+        ]
+    },
+    {
+        "id": "b0988b2156e00a49",
+        "type": "inject",
+        "z": "251e28d43075d4af",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 820,
+        "y": 220,
+        "wires": [
+            [
+                "3a6351d713b1a634"
+            ]
+        ]
+    },
+    {
+        "id": "2079143df36dec20",
+        "type": "debug",
+        "z": "251e28d43075d4af",
+        "name": "debug 13",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1460,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "a833332514a2f771",
+        "type": "influxdb in",
+        "z": "fdbacd19fb5764f6",
+        "influxdb": "ca2547b7188cdec3",
+        "name": "List day grouped by cameras",
+        "query": "SELECT count(\"age\") FROM \"quarter\".\"log\" WHERE time >= now() - 7d GROUP BY time(1h), \"name\" fill(null)",
+        "rawOutput": false,
+        "precision": "",
+        "retentionPolicy": "",
+        "org": "organisation",
+        "x": 540,
+        "y": 120,
+        "wires": [
+            [
+                "6db48633350989c0"
+            ]
+        ]
+    },
+    {
+        "id": "875ae4bd38d364f0",
+        "type": "inject",
+        "z": "fdbacd19fb5764f6",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 260,
+        "y": 200,
+        "wires": [
+            [
+                "a833332514a2f771"
+            ]
+        ]
+    },
+    {
+        "id": "dad8cf1994db6774",
+        "type": "ui_chart",
+        "z": "fdbacd19fb5764f6",
+        "name": "",
+        "group": "1ae4c78855cac5fb",
+        "order": 0,
+        "width": "24",
+        "height": "12",
+        "label": "Detections par hour (last 7 days)",
+        "chartType": "line",
+        "legend": "true",
+        "xformat": "dd HH:mm",
+        "interpolate": "bezier",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1090,
+        "y": 120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6db48633350989c0",
+        "type": "function",
+        "z": "fdbacd19fb5764f6",
+        "name": "Influx to graph data",
+        "func": "\nvar series = {};\nmsg.payload.forEach( function(item){\n    if( !series.hasOwnProperty(item.name))\n        series[item.name] = [];\n    series[item.name].push({\n        x: item.time.getTime(),\n        y: item.count\n    })\n});\n\nvar data = {\n    series:[],\n    data:[],\n    lables:[\"\"]\n};\n\nfor( var name in series ) {\n    data.series.push(name);\n    data.data.push(series[name]);\n}\n\nmsg.payload = [data];\n\n/*\n[{\n\"series\": [\"A\", \"B\", \"C\"],\n\"data\": [\n    [{ \"x\": 1504029632890, \"y\": 5 },\n     { \"x\": 1504029636001, \"y\": 4 },\n     { \"x\": 1504029638656, \"y\": 2 }\n    ],\n    [{ \"x\": 1504029633514, \"y\": 6 },\n     { \"x\": 1504029636622, \"y\": 7 },\n     { \"x\": 1504029639539, \"y\": 6 }\n    ],\n    [{ \"x\": 1504029634400, \"y\": 7 },\n     { \"x\": 1504029637959, \"y\": 7 },\n     { \"x\": 1504029640317, \"y\": 7 }\n    ]\n],\n\"labels\": [\"\"]\n}]\n*/\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 810,
+        "y": 120,
+        "wires": [
+            [
+                "dad8cf1994db6774"
+            ]
+        ]
+    },
+    {
+        "id": "49cb79360e4ef071",
+        "type": "ui_template",
+        "z": "fdbacd19fb5764f6",
+        "d": true,
+        "group": "1ae4c78855cac5fb",
+        "name": "",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "format": "<a href=\"http://' + window.location.protocol + '//' + window.location.hostname + ':8086'\">Grafana</a>\n",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 660,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "eaa7ff86adfed99a",
+        "type": "ui_button",
+        "z": "fdbacd19fb5764f6",
+        "name": "",
+        "group": "1ae4c78855cac5fb",
+        "order": 2,
+        "width": "4",
+        "height": "1",
+        "passthru": false,
+        "label": "Refresh",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "refresh",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 250,
+        "y": 120,
+        "wires": [
+            [
+                "a833332514a2f771"
+            ]
+        ]
     }
 ]
