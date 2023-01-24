@@ -1,10 +1,12 @@
 .npm/
 mongodb/
 influxdb/
+grafana/
 projects/
 context/
 flows_cred.json
 package-lock.json
+.settings.js
 .config.nodes.json
 .config.nodes.json.backup
 .config.projects.json
