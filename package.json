@@ -4,6 +4,7 @@
     "version": "0.0.1",
     "private": true,
     "dependencies": {
+        "node-red-contrib-axis-acs": "~2.1.1",
         "node-red-contrib-axis-com": "~1.1.4",
         "node-red-contrib-influxdb": "~0.6.1",
         "node-red-dashboard": "~3.3.1",
