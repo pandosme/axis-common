@@ -87,9 +87,7 @@
             "87794f18357a7345"
         ],
         "x": 254,
-        "y": 339,
-        "w": 1272,
-        "h": 462
+        "y": 339
     },
     {
         "id": "b12a9cc543227135",
@@ -253,33 +251,6 @@
         "className": ""
     },
     {
-        "id": "260e45057b94b302",
-        "type": "mqtt-broker",
-        "name": "Broker",
-        "broker": "192.168.5.99",
-        "port": "1883",
-        "clientid": "",
-        "autoConnect": true,
-        "usetls": false,
-        "protocolVersion": "4",
-        "keepalive": "60",
-        "cleansession": true,
-        "birthTopic": "",
-        "birthQos": "0",
-        "birthPayload": "",
-        "birthMsg": {},
-        "closeTopic": "",
-        "closeQos": "0",
-        "closePayload": "",
-        "closeMsg": {},
-        "willTopic": "",
-        "willQos": "0",
-        "willPayload": "",
-        "willMsg": {},
-        "userProps": "",
-        "sessionExpiry": ""
-    },
-    {
         "id": "f3d9db3167cf7416",
         "type": "ui_group",
         "name": "Filter",
@@ -405,8 +376,8 @@
     {
         "id": "6f833267c9087af6",
         "type": "mqtt-broker",
-        "name": "Broker2",
-        "broker": "10.13.8.20",
+        "name": "Path broker",
+        "broker": "mqtt",
         "port": "1883",
         "clientid": "",
         "autoConnect": true,
@@ -433,7 +404,7 @@
         "id": "78de4fa781586202",
         "type": "ACS Server",
         "name": "ACS Server",
-        "address": "192.168.5.193",
+        "address": "10.13.8.120",
         "port": "55756"
     },
     {
@@ -5075,7 +5046,7 @@
         "topic": "path/+",
         "qos": "2",
         "datatype": "json",
-        "broker": "260e45057b94b302",
+        "broker": "6f833267c9087af6",
         "nl": false,
         "rap": true,
         "rh": 0,
@@ -5085,7 +5056,8 @@
         "wires": [
             [
                 "b2920347a89cd63e",
-                "7a295aaaf52f0510"
+                "7a295aaaf52f0510",
+                "a9381ba3c04152dc"
             ]
         ]
     },
@@ -5352,52 +5324,7 @@
         "wires": []
     },
     {
-        "id": "08a1abb55b4c865e",
-        "type": "mongodb in",
-        "z": "251e28d43075d4af",
-        "mongodb": "b12a9cc543227135",
-        "name": "",
-        "collection": "detections",
-        "operation": "aggregate",
-        "x": 640,
-        "y": 340,
-        "wires": [
-            [
-                "97ec584dae8c892e"
-            ]
-        ]
-    },
-    {
-        "id": "32748814d99ae979",
-        "type": "inject",
-        "z": "251e28d43075d4af",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 310,
-        "y": 340,
-        "wires": [
-            [
-                "08a1abb55b4c865e"
-            ]
-        ]
-    },
-    {
-        "id": "ec9eeea48362121c",
+        "id": "a9381ba3c04152dc",
         "type": "debug",
         "z": "251e28d43075d4af",
         "name": "debug 16",
@@ -5408,62 +5335,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1480,
-        "y": 340,
-        "wires": []
-    },
-    {
-        "id": "97ec584dae8c892e",
-        "type": "split",
-        "z": "251e28d43075d4af",
-        "name": "",
-        "splt": "\\n",
-        "spltType": "str",
-        "arraySplt": 1,
-        "arraySpltType": "len",
-        "stream": false,
-        "addname": "",
-        "x": 930,
-        "y": 340,
-        "wires": [
-            [
-                "4be922f31506ec8e"
-            ]
-        ]
-    },
-    {
-        "id": "4be922f31506ec8e",
-        "type": "function",
-        "z": "251e28d43075d4af",
-        "name": "function 1",
-        "func": "msg.query = {\n    device: msg.payload.device,\n    timestamp: msg.payload.timestamp\n}\n\ndelete msg.payload._id;\nmsg.payload.dwell = msg.payload.pause;\ndelete msg.payload.pause;\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 1100,
-        "y": 340,
-        "wires": [
-            [
-                "ec9eeea48362121c",
-                "3e470a22c7a4b939"
-            ]
-        ]
-    },
-    {
-        "id": "3e470a22c7a4b939",
-        "type": "mongodb out",
-        "z": "251e28d43075d4af",
-        "mongodb": "b12a9cc543227135",
-        "name": "",
-        "collection": "detections",
-        "payonly": true,
-        "upsert": false,
-        "multi": false,
-        "operation": "update",
-        "x": 1360,
-        "y": 380,
+        "x": 390,
+        "y": 40,
         "wires": []
     },
     {
