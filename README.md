@@ -28,9 +28,6 @@ You may want to edit the following in docker-compose.yaml for production systems
     ports:
       - '1883:1883'
   mongodb:
-    container_name: axis-ming-path-mongo
-    image: mongo:4.4.14
-    restart: always
 # Remove # below to expose mongodb port outside the container
 #    ports:
 #      - 27017:27017
