@@ -25,7 +25,7 @@ services:
       - ./mongodb:/data/db
 
   mongo-express:
-    container_name: axis-common-node-red-mongo-express
+    container_name: axis-ming-mongo-express
     image: mongo-express
     restart: always
     environment:
