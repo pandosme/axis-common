@@ -31,7 +31,7 @@ You may want to edit the following in docker-compose.yaml for production systems
     container_name: axis-ming-path-mongo
     image: mongo:4.4.14
     restart: always
-\# Remove \# below to expose mongodb port outside the container
+# Remove \# below to expose mongodb port outside the container
 \#    ports:
 \#      - 27017:27017
 \#    environment:
