@@ -29,7 +29,7 @@ services:
     container_name: axis-ming-path-mongo
     image: mongo:4.4.14
     restart: always
-# Remove remarks below to expose mongodb port outside the container
+# Remove # below to expose mongodb port outside the container
 #    ports:
 #      - 27017:27017
 #    environment:
@@ -44,6 +44,7 @@ services:
     user: '0'
     volumes:
       - ./influxdb:/var/lib/influxdb
+# Remove # to expose influx db outisde  
 #    ports:
 #      - '8686:8086'  
 

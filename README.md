@@ -1,15 +1,48 @@
 # axis-ming-path
 
+A tool to analyze how objects moves within a scene.  The data is captured by an ACAP called Path that is installed in Axis cameras.  The data is sent over MQTT to an MQTT broker hosted within the tool.  The data is stored in an InfluxDB and a MongoDB also hosted within the toool.
+
+The container includes:
+* Node-RED, flows and modules
+* Mosquitto MQTT Broker
+* Mongo DB
+* Influx DB
+* Grafan can be easily added by editing the docker-compose.yaml
+
+
 # pre-requisites
 - Linux host with Docker, Docker-compose and GIT installed
 
-# Node-RED Configuration
-You may want to alter the following default settings
+# Customization
 
 ## docker-compose.yaml
-- Port = 8600
-- Timezone = Europe/Stockholm
-- container_name (if you paln to have multiple instance of Node-RED containers)
+You may want to edit the following in docker-compose.yaml for production systems
+
+```
+  nodered:
+    environment:
+      - TZ=Europe/Stockholm
+    ports:
+      - '8050:1880'
+  mqtt:
+    ports:
+      - '1883:1883'
+  mongodb:
+    container_name: axis-ming-path-mongo
+    image: mongo:4.4.14
+    restart: always
+\# Remove \# below to expose mongodb port outside the container
+\#    ports:
+\#      - 27017:27017
+\#    environment:
+\#      - MONGO_INITDB_ROOT_USERNAME=user
+\#      - MONGO_INITDB_ROOT_PASSWORD=password
+  influxdb:
+\# Remove # to expose influx db outisde  
+\#    ports:
+\#      - '8686:8086'  
+
+```
 
 ## settings.js
 - httpAdminRoot: '/admin',   (Default flows view url http://address:8600/admin)
@@ -20,52 +53,13 @@ You may want to alter the following default settings
 - projects:                  (Default enable.  Allows to revisioning of local projects or import remote repositories)  
 - credentialSecret           (Set your own key to encrypt sensative data on host)
 
-# Deployment
-Clone repository (e.g. from /home/user/ )
-```
-git clone https://github.com/pandosme/axis-common-node-red.git
-cd axis-common-node-red
-git checkout mongodb
-```
-Update containers
-```
-sudo docker-compose pull
-```
-Install npm packages. 
-The following additional packages will be installed
-- [Dashboard](https://flows.nodered.org/node/node-red-dashboard)
-- [UI Table](https://flows.nodered.org/node/node-red-node-ui-table)
-- [Axis device & Axis Camera](https://flows.nodered.org/node/node-red-contrib-axis-device)
-- [Axis ACAP](https://flows.nodered.org/node/node-red-contrib-axis-acap)
-- [Axis Security](https://flows.nodered.org/node/node-red-contrib-axis-security)
-- [MongoDB](https://flows.nodered.org/node/node-red-node-mongodb)
-- [InfluxDB](https://flows.nodered.org/node/node-red-contrib-influxdb)
 
-If nodejs and npm is installed on your system run,
+# Deployment
 ```
-npm install
+git clone https://github.com/pandosme/axis-ming
+cd axis-ming
+git checkout path
+docker-compose up -d
 ```
-If nodejs and npm is not installed run
-```
-sudo docker-compose up -d
-sudo docker exec -it axis-common-node-red bash
-cd /data
-npm install
-exit
-sudo docker-compose down
-```
-Optional edit docker-compose and settings.js (see above)
-```
-nano docker-compose.yaml
-nano settings.js
-```
-Start container
-```
-sudo docker-compose up -d
-```
-Access Node-RED with a browser
-```
-Flows http://address:8600/admin
-Dashboard http://address:8600
-```
-When entering flows view and you don't plan using projects, just click "Not right now"
+
+You need to edit the Axis Node and add user and password to get background images.
