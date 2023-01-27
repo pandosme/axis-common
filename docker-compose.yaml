@@ -1,7 +1,7 @@
 version: '3'
 services:
   nodered:
-    container_name: axis-common-node-red
+    container_name: axis-ming
     image: nodered/node-red:latest
     restart: always
     environment:
