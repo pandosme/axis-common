@@ -1,3 +1,4 @@
+docker-compose.yaml
 http-static/
 node_modules/
 .npm/
