@@ -1,4 +1,4 @@
-# axis-common-node-red:mongo
+# axis-ming:mongo
 Common Node-RED configuration when scripting cameras with a local mongo database container.
 
 # pre-requisites
@@ -8,7 +8,7 @@ Common Node-RED configuration when scripting cameras with a local mongo database
 You may want to alter the following default settings
 
 ## docker-compose.yaml
-- Port = 8600
+- Port = 8610
 - Timezone = Europe/Stockholm
 - container_name (if you paln to have multiple instance of Node-RED containers)
 
