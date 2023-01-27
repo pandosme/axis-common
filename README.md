@@ -31,17 +31,16 @@ You may want to edit the following in docker-compose.yaml for production systems
     container_name: axis-ming-path-mongo
     image: mongo:4.4.14
     restart: always
-# Remove \# below to expose mongodb port outside the container
-\#    ports:
-\#      - 27017:27017
-\#    environment:
-\#      - MONGO_INITDB_ROOT_USERNAME=user
-\#      - MONGO_INITDB_ROOT_PASSWORD=password
+# Remove # below to expose mongodb port outside the container
+#    ports:
+#      - 27017:27017
+#    environment:
+#      - MONGO_INITDB_ROOT_USERNAME=user
+#      - MONGO_INITDB_ROOT_PASSWORD=password
   influxdb:
-\# Remove # to expose influx db outisde  
-\#    ports:
-\#      - '8686:8086'  
-
+# Remove # to expose influx db outisde  
+#    ports:
+#      - '8686:8086'  
 ```
 
 ## settings.js
