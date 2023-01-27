@@ -1,5 +1,5 @@
-node_modules/
 http-static/
+node_modules/
 .npm/
 projects/
 context/
