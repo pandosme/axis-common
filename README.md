@@ -1,5 +1,5 @@
-# axis-common-node-red
-Common Node-RED configuration when scripting cameras
+# axis-ming
+Common Node-RED configuration when scripting Axis cameras
 
 # pre-requisites
 - Linux host with Docker, Docker-compose and GIT installed
@@ -23,14 +23,6 @@ You may want to alter the following default settings
 
 # Deployment
 Clone repository (e.g. from /home/user/ )
-```
-git clone git@github.com:pandosme/axis-common-node-red.git
-cd axis-common-node-red
-```
-Update containers
-```
-sudo docker-compose pull
-```
 Install npm packages. 
 
 If nodejs and npm is installed on your system run,
@@ -49,26 +41,4 @@ sudo docker-compose down
 The following additional packages will be installed
 - [Dashboard](https://flows.nodered.org/node/node-red-dashboard)
 - [UI Table](https://flows.nodered.org/node/node-red-node-ui-table)
-- [Axis device & Axis Camera](https://flows.nodered.org/node/node-red-contrib-axis-device)
-- [Axis ACAP](https://flows.nodered.org/node/node-red-contrib-axis-acap)
-- [Axis Security](https://flows.nodered.org/node/node-red-contrib-axis-security)
-- [MongoDB](https://flows.nodered.org/node/node-red-node-mongodb)
-- [InfluxDB](https://flows.nodered.org/node/node-red-contrib-influxdb)
-
-
-
-Optional edit docker-compose and settings.js (see above)
-```
-nano docker-compose.yaml
-nano settings.js
-```
-Start container
-```
-sudo docker-compose up -d
-```
-Access Node-RED with a browser
-```
-Flows http://address:8600/admin
-Dashboard http://address:8600
-```
-When entering flows view and you don't plan using projects, just click "Not right now"
+- [Axis Nodes](https://flows.nodered.org/node/node-red-contrib-axis-com)
