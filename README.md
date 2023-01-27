@@ -44,8 +44,8 @@ You may want to edit the following in docker-compose.yaml for production systems
 ```
 
 ## settings.js
-- httpAdminRoot: '/admin',   (Default flows view url http://address:8600/admin)
-- ui: { path: "/" },         (Default dashboard url http://address:8600/)
+- httpAdminRoot: '/admin',   (Default flows view url http://address:8050/admin)
+- ui: { path: "/" },         (Default dashboard url http://address:8050/)
 - adminAuth:                 (Default disabled.  It is recommended that you enable admin credentials.  See [Securing Node-RED](https://nodered.org/docs/user-guide/runtime/securing-node-red#editor--admin-api-security))
 - httpNodeAuth:              (Default disabled.  It is recommeded to enable credentials to dashboard view. See [Securing Dasboard](https://nodered.org/docs/user-guide/runtime/securing-node-red#http-node-security))
 - contextStorage:            (Default enabled.  Contect data will be stored and retained between reboots)
