@@ -1,4 +1,4 @@
-# axis-ming-path
+# Path Analyzer (axis-ming-path)
 
 A tool to analyze how objects moves within a scene.  The data is captured by an ACAP called Path that is installed in Axis cameras.  The data is sent over MQTT to an MQTT broker hosted within the tool.  The data is stored in an InfluxDB and a MongoDB also hosted within the toool.
 
@@ -11,7 +11,9 @@ The container includes:
 
 
 # pre-requisites
+- One or more Axis cameras
 - Linux host with Docker, Docker-compose and GIT installed
+- [Path](https://api.aintegration.team/acap/path?source=axis-ming) installed in cameras.  The Path MQTT should be set to the machine address that the tool is installed on.
 
 # Customization
 
