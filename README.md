@@ -52,10 +52,24 @@ You may want to edit settings.js to customize the Node-RED settings.
 
 # Deployment
 ```
-git clone https://github.com/pandosme/axis-ming
+git clone https://github.com/pandosme/axis-ming.git
 cd axis-ming
 git checkout path
+npm install (see below)
 docker-compose up -d
 ```
+If node and npm is not installed you can install them from the container
+```
+sudo docker exec -it axis-ming-path bash
+cd /data
+npm install
+exit
+sudo docker-compose down
+sudo docker-compose up -d
+```
 
-You need to edit the Axis Node and add user and password to get background images.
+Node-RED needs to have the cameras credentials in order to tack background reference images.  Use a browser and go to http://address:8050/admin.  In the tab "Cameras", double-click one of the orange camera nodes.  Click the pen icon and set the cameas user and password.  Leave address empty.
+
+Install [Path](https://api.aintegration.team/acap/path?source=axis-ming) in all your cameras.  Configure MQTT to go to the server IP address you installed the tool on.  No user/password required.
+
+Go to http://server-address:8050
