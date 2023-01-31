@@ -86,8 +86,10 @@
             "87794f18357a7345",
             "b98ec969ddf163e5"
         ],
-        "x": 254,
-        "y": 339
+        "x": 244,
+        "y": 339,
+        "w": 1282,
+        "h": 462
     },
     {
         "id": "b12a9cc543227135",
@@ -1843,6 +1845,13 @@
                 "pt": "msg",
                 "to": "reset",
                 "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "dwell",
+                "pt": "flow",
+                "to": "5",
+                "tot": "num"
             }
         ],
         "action": "",
@@ -5334,8 +5343,8 @@
                 "t": "set",
                 "p": "options",
                 "pt": "msg",
-                "to": "options",
-                "tot": "msg",
+                "to": "cameras",
+                "tot": "global",
                 "dc": true
             },
             {
@@ -5796,7 +5805,7 @@
         "type": "function",
         "z": "251e28d43075d4af",
         "name": "Insert",
-        "func": "msg.payload = [\n    {\n        \"time\": msg.payload.timestamp,\n        \"x\": msg.payload.path[0].x,\n        \"y\": msg.payload.path[0].y,\n        \"dx\": msg.payload.dx,\n        \"dy\": msg.payload.dy,\n        \"age\": msg.payload.age,\n        \"distance\": msg.payload.distance,\n        \"dwell\": msg.payload.dwell || 1\n    },\n    {\n        \"name\": msg.payload.name || msg.payload.device,\n        \"device\": msg.payload.device,\n        \"horizontal\": msg.payload.dx < 0?\"Left\":\"Right\",\n        \"vertical\": msg.payload.dy < 0 ? \"Up\":\"Down\",\n        \"type\": \"Object\",\n        \"class\": \"Unknown\"\n    }\n]\nreturn msg;",
+        "func": "msg.payload = [\n    {\n        \"time\": msg.payload.timestamp,\n        \"x\": msg.payload.path[0].x,\n        \"y\": msg.payload.path[0].y,\n        \"dx\": msg.payload.dx,\n        \"dy\": msg.payload.dy,\n        \"age\": msg.payload.age,\n        \"distance\": msg.payload.distance,\n        \"dwell\": msg.payload.dwell || 1\n    },\n    {\n        \"name\": msg.payload.name || msg.payload.device,\n        \"device\": msg.payload.device,\n        \"horizontal\": msg.payload.dx < 0?\"Left\":\"Right\",\n        \"vertical\": msg.payload.dy < 0 ? \"Up\":\"Down\",\n        \"type\": msg.payload.type || \"Object\",\n        \"class\": msg.payload.class || \"Unknown\"\n    }\n]\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
