@@ -74,7 +74,7 @@ module.exports = {
     // Note: once you set this property, do not change it - doing so will prevent
     // node-red from being able to decrypt your existing credentials and they will be
     // lost.
-    credentialSecret: "P7h%bcbRwvX!jhg4532dfkdf",
+    credentialSecret: false,
 
     // By default, all user data is stored in a directory called `.node-red` under
     // the user's home directory. To use a different location, the following
@@ -103,7 +103,7 @@ module.exports = {
     // When httpAdminRoot is used to move the UI to a different root path, the
     // following property can be used to identify a directory of static content
     // that should be served at http://localhost:1880/.
-    httpStatic: '/data/http-static/',
+    //httpStatic: '/data/static/',
 
     // The maximum size of HTTP request that will be accepted by the runtime api.
     // Default: 5mb
@@ -230,11 +230,11 @@ module.exports = {
     // provided here will enable file-based context that flushes to disk every 30 seconds.
     // Refer to the documentation for further options: https://nodered.org/docs/api/context/
     //
-    contextStorage: {
-        default: {
-            module:"localfilesystem"
-        },
-    },
+    //contextStorage: {
+    //    default: {
+    //        module:"localfilesystem"
+    //    },
+    //},
 
     // The following property can be used to order the categories in the editor
     // palette. If a node's category is not in the list, the category will get
