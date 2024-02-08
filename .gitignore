@@ -3,6 +3,7 @@ http-static/
 node_modules/
 .npm/
 projects/
+static/
 context/
 flows_cred.json
 package-lock.json
